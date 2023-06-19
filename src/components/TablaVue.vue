@@ -8,7 +8,8 @@
             <th scope="col">Apellido</th>
             <th scope="col">Edad</th>
             <th scope="col">Email</th>
-            <th scope="col">passNivel</th>       
+            <th scope="col">passNivel</th>  
+            <th scope="col">rol</th>      
           </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
             <td>{{ dato.edad }}</td>
             <td>{{ dato.email }}</td>
             <td>{{ dato.passNivel }}</td>
+            <td>{{ dato.rol }}</td>
           </tr>
         </tbody>
       </table>

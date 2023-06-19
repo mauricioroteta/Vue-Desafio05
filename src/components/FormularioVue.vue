@@ -19,7 +19,7 @@
                 name="nombre"
                 placeholder="Ingrese Nombre"
               />
-              <small id="emailHelp" class="form-text text-muted">Este Campo es Requrido - Debe ingresar un nombre</small>
+              <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
             </validate>
         </div>
 
@@ -33,7 +33,7 @@
             name="name"
             placeholder="Ingrese Apellido"
           />
-          <small id="emailHelp" class="form-text text-muted">Este Campo es Requrido - Debe ingresar el Apellido</small>
+          <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
         </validate>
         </div>
 
@@ -47,7 +47,7 @@
                 name="edad"
                 placeholder="Ingrese Edad"
               />
-              <small id="emailHelp" class="form-text text-muted">Este Campo es Requrido - Debe ingresar la edad</small>
+              <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
             </validate>
         </div>
 
@@ -61,7 +61,7 @@
             name="email"
             placeholder="Ingrese EMail"
           /> 
-          <small id="emailHelp" class="form-text text-muted">Este Campo es Requrido - Debe ingresar un Email</small>
+          <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
         </validate>
        </div>
 
@@ -78,14 +78,27 @@
             name="password"
             required
           />
-          <field-messages name="password" show="$untouched">
-            <div slot="required">La contraseña es requerida</div>
-            <div slot="check-password">
-              Debe contener al menos 8 caracteres, una mayúscula, una minúscula,
-              un número y un carácter especial
-            </div>
-          </field-messages>
+          <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
         </validate>
+
+        <div class="form-group">
+            <validate class="form-item f-item" tag="label">
+              <select
+                type="text"
+                class="form-control "
+                v-model="info.rol"
+                required
+                name="rol"
+                placeholder="Rol">
+              <option>Usuarios</option>
+              <option>supervisor</option>
+              <option>Administrador</option>
+            </select>
+              <small id="emailHelp" class="form-text text-muted">Campo es requerido</small>
+            </validate>
+        </div>
+
+        
         </div>
         <button type="submit">Agregar</button>
       </vue-form>
@@ -105,7 +118,8 @@
           edad: 0,
           email: "",
           password: "",
-          passNivel: ""
+          passNivel: "",
+          rol: "",
         },
       };
     },
@@ -115,10 +129,11 @@
           this.$emit("nuevo-dato", { ...this.info }); 
           this.info.nombre = "";
           this.info.apellido = "";
-          this.info.edad = "";
+          this.info.edad = 0;
           this.info.email = "";
           this.info.password = "";
           this.info.PassNivel = "";
+          this.info.rol = "";
         }
       },
       
