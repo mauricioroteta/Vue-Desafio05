@@ -8,8 +8,8 @@
             <th scope="col">Apellido</th>
             <th scope="col">Edad</th>
             <th scope="col">Email</th>
-            <th scope="col">passNivel</th>  
-            <th scope="col">rol</th>      
+            <th scope="col">Seguridad del Password</th>  
+            <th scope="col">Rol en el sistema</th>      
           </tr>
         </thead>
         <tbody>
@@ -44,4 +44,9 @@
     text-align: center;
     padding: 1rem 6rem;
 }
+
+.table-striped{
+  align-items: cente;
+}
+
 </style>

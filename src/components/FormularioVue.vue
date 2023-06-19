@@ -77,6 +77,7 @@
             v-model="info.password"
             name="password"
             required
+            placeholder="Password"
           />
           <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
         </validate>
@@ -89,9 +90,10 @@
                 v-model="info.rol"
                 required
                 name="rol"
-                placeholder="Rol">
-              <option>Usuarios</option>
-              <option>supervisor</option>
+                value="Usuario">
+              <option disabled selected value style="display:none;">Seleccione un Rol</option>
+              <option>Usuario</option>
+              <option>Supervisor</option>
               <option>Administrador</option>
             </select>
               <small id="emailHelp" class="form-text text-muted">Campo es requerido</small>
@@ -100,7 +102,9 @@
 
         
         </div>
-        <button type="submit">Agregar</button>
+        <b-button variant="outline-primary" type="submit">
+          <b-icon icon="person-fill"></b-icon> Aceptar
+        </b-button>
       </vue-form>
     </div>
     </div>
