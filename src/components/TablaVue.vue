@@ -1,8 +1,8 @@
 <template>
     <div class="table">
       <h2>Tabla</h2>
-      <table class=" table-striped">
-        <thead>
+      <table class="table table-bordered border-primary">
+        <thead class="table-dark">
           <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>

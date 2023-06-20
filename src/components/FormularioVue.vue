@@ -18,8 +18,10 @@
                 required
                 name="nombre"
                 placeholder="Ingrese Nombre"
-              />
-              <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
+              />          
+              <field-messages name="nombre" show="$touched">
+                <div slot="required">Debe ingresar el nombre</div>
+              </field-messages>
             </validate>
         </div>
 
@@ -30,10 +32,12 @@
             class="form-control"
             v-model="info.apellido"
             required
-            name="name"
+            name="apellido"
             placeholder="Ingrese Apellido"
           />
-          <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
+          <field-messages name="apellido" show="$touched">
+            <div slot="required">Debe ingresar el apellido</div>
+          </field-messages>
         </validate>
         </div>
 
@@ -46,8 +50,8 @@
                 required
                 name="edad"
                 placeholder="Ingrese Edad"
-              />
-              <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
+                min="18" max="99"
+              />              
             </validate>
         </div>
 
@@ -61,7 +65,9 @@
             name="email"
             placeholder="Ingrese EMail"
           /> 
-          <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
+          <field-messages name="email" show="$touched">
+            <div slot="required">Debe ingresar un Email</div>
+          </field-messages>
         </validate>
        </div>
 
@@ -119,7 +125,7 @@
         info: {
           nombre: "",
           apellido: "",
-          edad: 0,
+          edad: 18,
           email: "",
           password: "",
           passNivel: "",
@@ -133,7 +139,7 @@
           this.$emit("nuevo-dato", { ...this.info }); 
           this.info.nombre = "";
           this.info.apellido = "";
-          this.info.edad = 0;
+          this.info.edad = 18;
           this.info.email = "";
           this.info.password = "";
           this.info.PassNivel = "";
@@ -217,6 +223,10 @@ html, body {
     align-items: center;
     flex-direction: column;
     padding-bottom: 10px;
+  }
+
+  .text-muted{
+    color: red;
   }
 </style>
   
