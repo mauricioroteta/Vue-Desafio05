@@ -18,7 +18,7 @@
                 required
                 name="nombre"
                 placeholder="Ingrese Nombre"
-              />          
+              />
               <field-messages name="nombre" show="$touched">
                 <div slot="required">Debe ingresar el nombre</div>
               </field-messages>
@@ -85,7 +85,11 @@
             required
             placeholder="Password"
           />
-          <small id="emailHelp" class="form-text text-muted">Campo Requrido </small>
+          <field-messages name="password" v-show="$touched">
+            <div slot="required">La contraseña es requerida</div>
+            <div slot="check-password">{{ info.passNivel }}
+            </div>
+          </field-messages>
         </validate>
 
         <div class="form-group">
@@ -130,6 +134,7 @@
           password: "",
           passNivel: "",
           rol: "",
+          msg: [],
         },
       };
     },
@@ -137,16 +142,19 @@
       agregarDato() {
         if (this.formstate.$valid) {
           this.$emit("nuevo-dato", { ...this.info }); 
+          this.formstate['nombre'].$touched = false;
           this.info.nombre = "";
+          this.formstate['apellido'].$touched = false;
           this.info.apellido = "";
           this.info.edad = 18;
+          this.formstate['email'].$touched = false;
           this.info.email = "";
+          this.formstate['password'].$touched = false;
           this.info.password = "";
           this.info.PassNivel = "";
           this.info.rol = "";
         }
       },
-      
       checkPassword(password) {
         // Initialize variables
         var strength = 0;
