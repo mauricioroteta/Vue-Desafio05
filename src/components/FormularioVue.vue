@@ -87,8 +87,7 @@
           />
           <field-messages name="password" show="$touched">
             <div slot="required">La contraseña es requerida</div>
-            <div slot="check-password">{{ info.passNivel }}
-            </div>
+            <div slot="check-password">{{ info.passNivel }}</div>
           </field-messages>
         </validate>
 
@@ -137,6 +136,7 @@
           password: "",
           passNivel: "",
           rol: "",
+          msgmail: "",
           msg: [],
         },
       };
@@ -158,6 +158,8 @@
           this.formstate['rol'].$touched = false;
           this.info.PassNivel = "";
           this.info.rol = "";
+        }else if(!this.validEmail(this.email)) {
+          this.form_Alert = 'El formato del mail no es valido';
         }else{
           this.form_Alert = 'Complete los campos indicados';
           this.formstate['password'].$touched = true;
@@ -214,11 +216,13 @@
           this.info.passNivel = "MUY SEGURA " + tips;
           return this.info.passNivel;
         }
-      }
-
+      },
+      validEmail(email) {
+        var re = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+        return re.test(email);
     },
-    
-  };
+  },
+};
 
 
 </script>
