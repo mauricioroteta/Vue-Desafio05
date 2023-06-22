@@ -101,12 +101,13 @@
                 required
                 name="rol"
                 value="Usuario">
-              <option disabled selected value style="display:none;">Seleccione un Rol</option>
               <option>Usuario</option>
               <option>Supervisor</option>
               <option>Administrador</option>
             </select>
-              <small id="emailHelp" class="form-text text-muted">Campo es requerido</small>
+            <field-messages name="rol" show="$touched">
+              <div slot="required">El Rol es requerido</div>
+          </field-messages>
             </validate>
         </div>
 
@@ -115,6 +116,7 @@
         <b-button variant="outline-primary" type="submit">
           <b-icon icon="person-fill"></b-icon> Aceptar
         </b-button>
+        <div class="alert alert-danger" role="alert" v-if="form_Alert.length > 0">{{ form_Alert }}</div>
       </vue-form>
     </div>
     </div>
@@ -126,6 +128,7 @@
     data() {
       return {
         formstate: {},
+        form_Alert: "",
         info: {
           nombre: "",
           apellido: "",
@@ -140,8 +143,9 @@
     },
     methods: {
       agregarDato() {
+        this.form_Alert = '';
         if (this.formstate.$valid) {
-          this.$emit("nuevo-dato", { ...this.info }); 
+          this.$emit("nuevo-dato", { ...this.info });
           this.formstate['nombre'].$touched = false;
           this.info.nombre = "";
           this.formstate['apellido'].$touched = false;
@@ -151,8 +155,16 @@
           this.info.email = "";
           this.formstate['password'].$touched = false;
           this.info.password = "";
+          this.formstate['rol'].$touched = false;
           this.info.PassNivel = "";
           this.info.rol = "";
+        }else{
+          this.form_Alert = 'Complete los campos indicados';
+          this.formstate['password'].$touched = true;
+          this.formstate['email'].$touched = true;
+          this.formstate['apellido'].$touched = true;
+          this.formstate['nombre'].$touched = true;
+          this.formstate['rol'].$touched = true;
         }
       },
       checkPassword(password) {
