@@ -85,7 +85,7 @@
             required
             placeholder="Password"
           />
-          <field-messages name="password" v-show="$touched">
+          <field-messages name="password" show="$touched">
             <div slot="required">La contraseña es requerida</div>
             <div slot="check-password">{{ info.passNivel }}
             </div>
