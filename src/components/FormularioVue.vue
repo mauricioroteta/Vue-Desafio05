@@ -19,7 +19,7 @@
                 name="nombre"
                 placeholder="Ingrese Nombre"
               />
-              <field-messages name="nombre" show="$touched">
+              <field-messages name="nombre" show="$touched || $submitted">
                 <div slot="required">Debe ingresar el nombre</div>
               </field-messages>
             </validate>
@@ -35,7 +35,7 @@
             name="apellido"
             placeholder="Ingrese Apellido"
           />
-          <field-messages name="apellido" show="$touched">
+          <field-messages name="apellido" show="$touched || $submitted">
             <div slot="required">Debe ingresar el apellido</div>
           </field-messages>
         </validate>
@@ -56,7 +56,8 @@
         </div>
 
         <div class="form-group">
-        <validate class="form-item f-item" tag="label">
+        <validate class="form-item f-item" tag="label"
+        :custom="{'check-mail': validEmail}">
           <input
             type="email"
             class="form-control"
@@ -65,8 +66,9 @@
             name="email"
             placeholder="Ingrese EMail"
           /> 
-          <field-messages name="email" show="$touched">
+          <field-messages name="email" show="$touched || $submitted">
             <div slot="required">Debe ingresar un Email</div>
+            <div slot="check-mail">El mail no es valido</div>
           </field-messages>
         </validate>
        </div>
@@ -85,7 +87,7 @@
             required
             placeholder="Password"
           />
-          <field-messages name="password" show="$touched">
+          <field-messages name="password" show="$touched || $submitted">
             <div slot="required">La contraseña es requerida</div>
             <div slot="check-password">{{ info.passNivel }}</div>
           </field-messages>
@@ -104,18 +106,16 @@
               <option>Supervisor</option>
               <option>Administrador</option>
             </select>
-            <field-messages name="rol" show="$touched">
+            <field-messages name="rol" show="$touched || $submitted">
               <div slot="required">El Rol es requerido</div>
           </field-messages>
             </validate>
         </div>
 
-        
         </div>
         <b-button variant="outline-primary" type="submit">
           <b-icon icon="person-fill"></b-icon> Aceptar
         </b-button>
-        <div class="alert alert-danger" role="alert" v-if="form_Alert.length > 0">{{ form_Alert }}</div>
       </vue-form>
     </div>
     </div>
@@ -127,7 +127,6 @@
     data() {
       return {
         formstate: {},
-        form_Alert: "",
         info: {
           nombre: "",
           apellido: "",
@@ -135,6 +134,7 @@
           email: "",
           password: "",
           passNivel: "",
+          passNivelCod: 0,
           rol: "",
           msgmail: "",
           msg: [],
@@ -143,7 +143,6 @@
     },
     methods: {
       agregarDato() {
-        this.form_Alert = '';
         if (this.formstate.$valid) {
           this.$emit("nuevo-dato", { ...this.info });
           this.formstate['nombre'].$touched = false;
@@ -158,10 +157,7 @@
           this.formstate['rol'].$touched = false;
           this.info.PassNivel = "";
           this.info.rol = "";
-        }else if(!this.validEmail(this.email)) {
-          this.form_Alert = 'El formato del mail no es valido';
         }else{
-          this.form_Alert = 'Complete los campos indicados';
           this.formstate['password'].$touched = true;
           this.formstate['email'].$touched = true;
           this.formstate['apellido'].$touched = true;
@@ -205,16 +201,16 @@
         // Return results
         if (strength < 2) {
           this.info.passNivel = "INSEGURA! " + tips;
-          return this.info.passNivel;
+          return false;
         } else if (strength === 2) {
           this.info.passNivel = "MEDIA " + tips;
-          return this.info.passNivel;
+          return false;
         } else if (strength === 3) {
-          this.info.passNivel = "SEGURA. " + tips;
-          return this.info.passNivel;
+          this.info.passNivel = "POCO SEGURA. " + tips;
+          return false;
         } else {
           this.info.passNivel = "MUY SEGURA " + tips;
-          return this.info.passNivel;
+          return true;
         }
       },
       validEmail(email) {
